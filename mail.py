@@ -6,11 +6,11 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import getpass
 
-def sentmail(song,dirName):
+def sentmail(receiver_email,song,dirName):
     subject = song+" analysis"
     body = "You will find attached the analysis of the song "+song
     sender_email = "mauriziomartinc@gmail.com"
-    receiver_email = "mauriziomartinc@gmail.com"
+    #receiver_email = "mauriziomartinc@gmail.com"
     password = getpass.getpass("Type your password and press enter:")
 
     # Create a multipart message and set headers

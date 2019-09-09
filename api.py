@@ -34,17 +34,21 @@ def authRequestText(url, params={}):
     return response.text
 
 def getSongId(search):
-    params = {'q': search}
+    try:
+        params = {'q': search}
 
-    url = "https://genius.com/api/search/multi?" + urlencode(params)
-    response = requests.get(url)
-    response = response.json()['response']
-    hits = response['sections'][0]['hits']
-    if hits:
-        tophit = hits[0]
-        if tophit['type'] == "song":
-            resultado = (tophit['result'])
-    return resultado['id']
+        url = "https://genius.com/api/search/multi?" + urlencode(params)
+        response = requests.get(url)
+        response = response.json()['response']
+        hits = response['sections'][0]['hits']
+        if hits:
+            tophit = hits[0]
+            if tophit['type'] == "song":
+                resultado = (tophit['result'])
+        return resultado['id']
+    except:
+        print("Song not found")
+        return
 
 def getChildren(dic):
     if type(dic) is dict:
@@ -70,13 +74,22 @@ def getSongData(id):
     data = authRequestJson("https://api.genius.com/songs/{}".format(id))
     data = data['response']['song']
     song_description = getDescription(data['description']['dom']['children'])
+    song_name= data['title']
     song_img = data['header_image_url']
     song_url = data['url']
     song_album = data['album']
-    song_artist_id = data['album']['artist']['id']
-    song_artist_name = data['album']['artist']['name']
+    try:
+        song_artist_id = data['album']['artist']['id']
+    except:
+        song_artist_id = ""
+
+    try:
+        song_artist_name = data['album']['artist']['name']
+    except:
+        song_artist_name = ""
     song_dict={
         "song_id":id,
+        "song_name":song_name,
         "lyrics":getSongLyrics(song_url),
         "description":song_description,
         "img":song_img,
@@ -98,7 +111,7 @@ def getSongLyrics(song_url):
 
 def getImg(url,song,dirName):
     img_data = requests.get(url).content
-    with open(dirName+'/'+song+'_img.jpg', 'wb') as handler:
+    with open(dirName+'/image.png', 'wb') as handler:
         handler.write(img_data)
 
 

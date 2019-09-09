@@ -2,6 +2,9 @@ input
 .env
 output
 analysis
+apitest.ipynb
+df.ipynb
+cleaning_df.ipynb
 
 
 # Byte-compiled / optimized / DLL files
