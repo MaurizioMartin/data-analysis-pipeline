@@ -19,6 +19,7 @@ def create_folder(song):
     except FileExistsError:
         print("Directory " , dirName ,  " already exists")
         return dirName
+
 def create_graph(df,song,region,dirName):
     try:
         name=region+"_graph.png"
@@ -27,5 +28,12 @@ def create_graph(df,song,region,dirName):
         plt.ylim(100,0)
         plt.xticks(rotation=45)
         plt.savefig(dirName+"/"+name, dpi=300)
+    except TypeError as te:
+        print(te)
+
+def getSongDataDf(df,song,artist_name):
+    try:
+        df = df[(df.song_name==song) & (df.artist_name==artist_name)]
+        return df.to_dict()
     except TypeError as te:
         print(te)

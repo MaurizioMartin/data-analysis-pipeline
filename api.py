@@ -74,6 +74,7 @@ def getSongData(id):
     song_url = data['url']
     song_album = data['album']
     song_artist_id = data['album']['artist']['id']
+    song_artist_name = data['album']['artist']['name']
     song_dict={
         "song_id":id,
         "lyrics":getSongLyrics(song_url),
@@ -81,7 +82,8 @@ def getSongData(id):
         "img":song_img,
         "url":song_url,
         "album":song_album,
-        "artist_id":song_artist_id
+        "artist_id":song_artist_id,
+        "artist_name":song_artist_name
     }
     return song_dict
 
