@@ -3,6 +3,7 @@ import requests
 from dotenv import load_dotenv
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
+import urllib.request
 load_dotenv()
 
 clientid = os.getenv("CLIENT_ID")
@@ -92,3 +93,11 @@ def getSongLyrics(song_url):
         return None
     lyrics = div.get_text()
     return lyrics.strip("\n")
+
+def getImg(url,song,dirName):
+    img_data = requests.get(url).content
+    with open(dirName+'/'+song+'_img.jpg', 'wb') as handler:
+        handler.write(img_data)
+
+
+
